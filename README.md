@@ -21,7 +21,7 @@ Plataforma integral para la gestión y reserva de escenarios deportivos.
 * **Tecnologías:** Lógica de programación avanzada y persistencia de datos con MySQL.
 
 ### Educación y Certificaciones
-* **Tecnólogo en Análisis y Desarrollo de Software (ADSO)** - SENA (Etapa lectiva finalizada).
+* **Tecnólogo en Análisis y Desarrollo de Software (ADSO)** - SENA (Etapa lectiva finaliza en julio de 2026).
 * **Bachiller con Énfasis en Media Tecnológica** - IED Pablo De Tarso.
 * **Idiomas:** Inglés Nivel A1 (Certificado) | Nivel A2 en curso (Academia SMART).
 
