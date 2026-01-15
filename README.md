@@ -25,7 +25,9 @@ Plataforma integral para la gestión y reserva de escenarios deportivos.
 * **Bachiller con Énfasis en Media Tecnológica** - IED Pablo De Tarso.
 * **Idiomas:** Inglés Nivel A1 (Certificado) | Nivel A2 en curso (Academia SMART).
 
-> [📂 Ver carpeta de soportes y certificados académicos](https://drive.google.com/drive/folders/12QwSwXjMkgut1p6V-l2-9Afa1nYUeWAc?usp=sharing)
-
 ---
-📧 **Contacto:** nicolaspreciado.dev@gmail.com
+
+### 📄 Documentación y Contacto
+* [**📄 Consultar Hoja de Vida (PDF)**](https://drive.google.com/drive/folders/1UN6safhASPfCQogNOTE8tS99DdjMwz7b?usp=sharing)
+* [**📂 Ver Carpeta de Certificados y Soportes**](https://drive.google.com/drive/folders/12QwSwXjMkgut1p6V-l2-9Afa1nYUeWAc?usp=sharing)
+* 📧 **Email:** nicolaspreciado.dev@gmail.com
