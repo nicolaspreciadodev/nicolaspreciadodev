@@ -20,10 +20,12 @@ Plataforma integral para la gestión y reserva de escenarios deportivos.
 * **Funcionalidades:** Gestión de roles de usuario, sistema de reservas con validación en tiempo real e integración de módulos de pago y facturación electrónica.
 * **Tecnologías:** Lógica de programación avanzada y persistencia de datos con MySQL.
 
-### Formación Académica
+### Educación y Certificaciones
 * **Tecnólogo en Análisis y Desarrollo de Software (ADSO)** - SENA (Etapa lectiva finalizada).
 * **Bachiller con Énfasis en Media Tecnológica** - IED Pablo De Tarso.
 * **Idiomas:** Inglés Nivel A1 (Certificado) | Nivel A2 en curso (Academia SMART).
+
+> [📂 Ver carpeta de soportes y certificados académicos](https://drive.google.com/drive/folders/12QwSwXjMkgut1p6V-l2-9Afa1nYUeWAc?usp=sharing)
 
 ---
 📧 **Contacto:** nicolaspreciado.dev@gmail.com
