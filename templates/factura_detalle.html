@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="flex items-center gap-4 mb-6">
+        <a href="{% url 'dashboard' %}" class="text-gray-400 hover:text-white transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        </a>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Detalle de Factura #{{ factura.id }}</h2>
+    </div>
+
+    <div class="bg-card border border-gray-800 rounded-xl overflow-hidden relative">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-neon"></div>
+        <div class="absolute top-10 right-10 text-gray-800 opacity-20 hidden sm:block">
+            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+        </div>
+
+        <div class="p-8 sm:p-12 relative z-10">
+            <div class="flex flex-col sm:flex-row justify-between border-b border-gray-800 pb-8 mb-8">
+                <div>
+                    <h3 class="text-3xl font-bold text-white mb-1">FACTURA <span class="text-neon">PAGADA</span></h3>
+                    <p class="text-gray-400">GoSport Platform Inc.</p>
+                </div>
+                <div class="mt-6 sm:mt-0 text-left sm:text-right">
+                    <p class="text-sm text-gray-400 mb-1">Fecha de Emisión:</p>
+                    <p class="font-medium text-white">{{ factura.fecha_creacion|date:"d M Y" }}</p>
+                    <p class="text-sm text-gray-400 mt-3 mb-1">N.º de Referencia:</p>
+                    <p class="font-mono text-white"># GS-{{ factura.id|stringformat:"06d" }}</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Facturado a:</h4>
+                    <p class="text-lg font-bold text-white">{{ reserva.usuario.first_name }} {{ reserva.usuario.last_name }}</p>
+                    <p class="text-gray-400">{{ reserva.usuario.email }}</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Detalles del Servicio:</h4>
+                    <p class="text-white font-medium">Reserva en: <span class="text-neon">{{ reserva.cancha.nombre }}</span></p>
+                    <p class="text-gray-400">{{ reserva.cancha.ubicacion }}</p>
+                    <p class="text-gray-400 mt-2">Fecha: {{ reserva.fecha|date:"d M Y" }}</p>
+                    <p class="text-gray-400">Hora: {{ reserva.hora|time:"H:i" }} hrs</p>
+                </div>
+            </div>
+
+            <table class="w-full text-left border-collapse mb-8">
+                <thead>
+                    <tr class="border-b border-gray-700">
+                        <th class="py-3 font-semibold text-gray-400">Descripción</th>
+                        <th class="py-3 font-semibold text-gray-400 text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800">
+                    <tr>
+                        <td class="py-4 text-white">
+                            <p class="font-medium">Alquiler de Cancha ({{ reserva.cancha.deporte.nombre }})</p>
+                            <p class="text-sm text-gray-400">Periodo de reserva estándar</p>
+                        </td>
+                        <td class="py-4 text-white text-right font-medium">${{ reserva.cancha.precio }}</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 text-white">
+                            <p class="font-medium">Cargo por Servicio</p>
+                        </td>
+                        <td class="py-4 text-white text-right font-medium">$0.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="border-t-2 border-neon">
+                        <td class="py-4 text-lg font-bold text-white text-right pr-4">Total Pagado</td>
+                        <td class="py-4 text-2xl font-bold text-neon text-right">${{ factura.total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="flex justify-center sm:justify-end gap-4 mt-10">
+                <button onclick="window.print()" class="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
