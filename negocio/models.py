@@ -16,6 +16,8 @@ class Torneo(models.Model):
     def __str__(self):
         return f"{self.nombre} ({self.get_estado_display()})"
 
+from django.core.exceptions import ValidationError
+
 class Reserva(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservas')
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE, related_name='reservas')
@@ -23,6 +25,23 @@ class Reserva(models.Model):
     hora = models.TimeField()
     pagado = models.BooleanField(default=False)
     
+    def clean(self):
+        # Check if a reservation already exists for the same court, date, and hour
+        overlapping = Reserva.objects.filter(
+            cancha=self.cancha,
+            fecha=self.fecha,
+            hora=self.hora
+        )
+        if self.pk:
+            overlapping = overlapping.exclude(pk=self.pk)
+            
+        if overlapping.exists():
+            raise ValidationError(f"La cancha {self.cancha.nombre} ya se encuentra reservada para la fecha {self.fecha} a las {self.hora}.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"Reserva {self.id} - {self.cancha.nombre} ({self.fecha})"
 

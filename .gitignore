@@ -1,6 +1,14 @@
 .venv/
+env/
 __pycache__/
 *.pyc
 db.sqlite3
 .DS_Store
-theme/node_modules/
+
+# Tailwind específico (esto es lo que te falta)
+theme/static_src/node_modules/
+node_modules/
+
+# Media y Estáticos
+media/
+staticfiles/

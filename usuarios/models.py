@@ -3,11 +3,10 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     ROLE_CHOICES = (
-        ('ADMIN_GEN', 'Admin General'),
-        ('DUEÑO_CANCHA', 'Dueño de Cancha'),
+        ('DUEÑO', 'Dueño de Cancha'),
         ('DEPORTISTA', 'Deportista'),
     )
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='DEPORTISTA')
+    rol = models.CharField(max_length=20, choices=ROLE_CHOICES, default='DEPORTISTA')
 
     def __str__(self):
-        return f"{self.username} ({self.get_role_display()})"
+        return f"{self.username} ({self.get_rol_display()})"

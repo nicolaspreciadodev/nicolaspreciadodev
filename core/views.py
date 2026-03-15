@@ -10,10 +10,10 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         
-        if user.role == 'DUEÑO_CANCHA':
+        if user.rol == 'DUEÑO':
             context['mis_canchas'] = Cancha.objects.filter(dueño=user)
             context['mis_torneos'] = Torneo.objects.filter(organizador=user)
-        elif user.role == 'DEPORTISTA':
+        elif user.rol == 'DEPORTISTA':
             context['canchas_disponibles'] = Cancha.objects.all()
             context['mis_reservas'] = Reserva.objects.filter(usuario=user)
         
