@@ -2,20 +2,20 @@
 
 Aplicación web en desarrollo enfocada en la gestión de reservas de canchas deportivas con organización de ligas y partidos.
 
-## 🧠 Descripción
+## Descripción
 
 Este proyecto tiene como objetivo permitir a los usuarios gestionar reservas de canchas, consultar disponibilidad y organizar partidos dentro de un sistema orientado a ligas deportivas.
 
 Actualmente se encuentra en proceso de desarrollo, trabajando en la estructura de vistas, lógica del sistema y funcionalidades principales bajo una metodología ágil (Scrum).
 
-## 🚀 Tecnologías utilizadas
+##  Tecnologías utilizadas
 
 - Python
 - Django
 - MySQL (o la que estés usando)
 - HTML, CSS (si aplica)
 
-## ⚙️ Funcionalidades (en desarrollo)
+##  Funcionalidades (en desarrollo)
 
 - Registro y gestión de usuarios
 - Creación de reservas de canchas
@@ -23,7 +23,7 @@ Actualmente se encuentra en proceso de desarrollo, trabajando en la estructura d
 - Organización de partidos y ligas
 - Panel de administración (en proceso)
 
-## 🛠️ Estado del proyecto
+##  Estado del proyecto
 
 🔧 En desarrollo
 
@@ -38,7 +38,7 @@ Actualmente se están ajustando:
 - Nicolas Preciado (GitHub: nicolaspreciadodev / nicolaspreciado585-dot)  
 - Daniel Cortés (GitHub: daniel-2030)
 
-## 📌 Aprendizajes
+##  Aprendizajes
 
 Este proyecto ha permitido fortalecer conocimientos en:
 - Desarrollo backend con Django
