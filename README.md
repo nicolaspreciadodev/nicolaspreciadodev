@@ -46,6 +46,26 @@ Este proyecto ha permitido fortalecer conocimientos en:
 - Trabajo en equipo bajo metodología Scrum
 - Control de versiones con Git y GitHub
 
+## Cómo ejecutar el proyecto
+
+1. Clonar el repositorio
+git clone https://github.com/nicolaspreciadodev/gosportpy.git
+
+2. Entrar al proyecto
+cd gosportpy
+
+3. Crear entorno virtual
+python -m venv env
+
+4. Activar entorno
+env\Scripts\activate  (Windows)
+
+5. Instalar dependencias
+pip install -r requirements.txt
+
+6. Ejecutar servidor
+python manage.py runserver
+
 ## 👨‍💻 Autor
 
 Johan Sebastián Talero Ovalle  
