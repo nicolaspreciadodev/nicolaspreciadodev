@@ -4,205 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoSport — Registro</title>
-    {% load tailwind_tags %}
-    {% tailwind_css %}
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        /* Estilos específicos del registro — no van en auth.css */
+        .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.5rem; }
+
+        .role-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+        .role-card {
+            border: 1.5px solid var(--border-default);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.25s, background 0.25s;
+        }
+
+        .role-option input:checked + .role-card {
+            border-color: var(--accent-color);
+            background: rgba(var(--accent-rgb), 0.06);
+        }
+
+        .role-card:hover { border-color: #4b5563; }
+        .role-card .role-emoji { font-size: 1.5rem; margin-bottom: 0.35rem; }
+        .role-card .role-name { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+        .role-card .role-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+        .name-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+        }
+
+        .auth-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .auth-footer a:hover { color: #00cc6a; }
+    </style>
 </head>
-<body class="bg-dark text-white min-h-screen flex items-center justify-center px-4">
+<body>
+    <div class="auth-card" style="max-width: 480px;">
 
-    <div class="w-full max-w-md">
+        <div class="auth-logo">Go<span>Sport</span></div>
+        <p class="auth-tagline">Crea tu cuenta y empieza a jugar</p>
 
-        <!-- Logo -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-black tracking-wider">
-                Go<span class="text-neon">Sport</span>
-            </h1>
-            <p class="text-gray-400 mt-2 text-sm">Crea tu cuenta y empieza a jugar</p>
-        </div>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                <i data-lucide="{% if message.tags == 'error' %}alert-circle{% else %}check-circle{% endif %}"
+                   style="width:16px;height:16px;flex-shrink:0;"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
 
-        <!-- Card -->
-        <div class="bg-gray-900/50 border border-gray-800/80 rounded-2xl p-8 relative overflow-hidden
-                    shadow-[0_0_30px_rgba(0,255,136,0.05)]">
+        <h2 class="auth-title">Crear cuenta</h2>
 
-            <!-- Barra superior decorativa -->
-            <div class="absolute top-0 left-0 w-full h-1
-                        bg-gradient-to-r from-neon via-green-400 to-transparent"></div>
+        <form method="POST">
+            {% csrf_token %}
 
-            <h2 class="text-2xl font-bold text-white mb-6">Crear cuenta</h2>
-
-            <!-- Mensajes -->
-            {% if messages %}
-            <div class="mb-6 space-y-2">
-                {% for message in messages %}
-                <div class="p-4 rounded-lg
-                    {% if message.tags == 'error' %}
-                        bg-red-900/40 text-red-400 border border-red-800
-                    {% else %}
-                        bg-green-900/40 text-green-400 border border-green-800
-                    {% endif %}">
-                    {{ message }}
+            <!-- Nombre y Apellido -->
+            <div class="name-grid">
+                <div class="form-group">
+                    <label class="form-label">{{ form.first_name.label }}</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" name="first_name"
+                               value="{{ form.first_name.value|default:'' }}"
+                               class="form-input" placeholder="Juan">
+                    </div>
+                    {% for error in form.first_name.errors %}
+                        <p class="form-error">{{ error }}</p>
+                    {% endfor %}
                 </div>
+
+                <div class="form-group">
+                    <label class="form-label">{{ form.last_name.label }}</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" name="last_name"
+                               value="{{ form.last_name.value|default:'' }}"
+                               class="form-input" placeholder="Pérez">
+                    </div>
+                    {% for error in form.last_name.errors %}
+                        <p class="form-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label class="form-label">{{ form.email.label }}</label>
+                <div class="input-wrapper">
+                    <i data-lucide="mail" class="input-icon"></i>
+                    <input type="email" name="email"
+                           value="{{ form.email.value|default:'' }}"
+                           class="form-input" placeholder="juan@email.com">
+                </div>
+                {% for error in form.email.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Username -->
+            <div class="form-group">
+                <label class="form-label">{{ form.username.label }}</label>
+                <div class="input-wrapper">
+                    <i data-lucide="at-sign" class="input-icon"></i>
+                    <input type="text" name="username"
+                           value="{{ form.username.value|default:'' }}"
+                           class="form-input" placeholder="juanperez123">
+                </div>
+                {% for error in form.username.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Rol -->
+            <div class="form-group">
+                <label class="form-label">¿Cómo usarás GoSport?</label>
+                <div class="role-grid">
+                    <label class="role-option">
+                        <input type="radio" name="rol" value="DEPORTISTA"
+                               {% if form.rol.value == 'DEPORTISTA' or not form.rol.value %}checked{% endif %}>
+                        <div class="role-card">
+                            <div class="role-emoji">⚽</div>
+                            <div class="role-name">Deportista</div>
+                            <div class="role-desc">Reservo canchas</div>
+                        </div>
+                    </label>
+                    <label class="role-option">
+                        <input type="radio" name="rol" value="DUEÑO"
+                               {% if form.rol.value == 'DUEÑO' %}checked{% endif %}>
+                        <div class="role-card">
+                            <div class="role-emoji">🏟️</div>
+                            <div class="role-name">Dueño</div>
+                            <div class="role-desc">Ofrezco canchas</div>
+                        </div>
+                    </label>
+                </div>
+                {% for error in form.rol.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label class="form-label">Contraseña</label>
+                <div class="input-wrapper">
+                    <i data-lucide="lock" class="input-icon"></i>
+                    <input type="password" name="password1" id="pass1"
+                           class="form-input has-toggle" placeholder="••••••••">
+                    <button type="button" class="toggle-password" onclick="togglePass('pass1','eye1')">
+                        <i data-lucide="eye" id="eye1" style="width:18px;height:18px;"></i>
+                    </button>
+                </div>
+                {% for error in form.password1.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Confirmar contraseña</label>
+                <div class="input-wrapper">
+                    <i data-lucide="lock" class="input-icon"></i>
+                    <input type="password" name="password2" id="pass2"
+                           class="form-input has-toggle" placeholder="••••••••">
+                    <button type="button" class="toggle-password" onclick="togglePass('pass2','eye2')">
+                        <i data-lucide="eye" id="eye2" style="width:18px;height:18px;"></i>
+                    </button>
+                </div>
+                {% for error in form.password2.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-error">
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
                 {% endfor %}
             </div>
             {% endif %}
 
-            <form method="POST" class="space-y-5">
-                {% csrf_token %}
+            <button type="submit" class="btn-primary">
+                <span>Crear cuenta</span>
+            </button>
+        </form>
 
-                <!-- Nombre y Apellido -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="text-sm font-medium text-gray-300">
-                            {{ form.first_name.label }}
-                        </label>
-                        <input type="text" name="first_name"
-                               value="{{ form.first_name.value|default:'' }}"
-                               placeholder="Juan"
-                               class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                      text-white placeholder-gray-600 focus:outline-none
-                                      focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                        {% for error in form.first_name.errors %}
-                        <p class="text-red-400 text-xs">{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-sm font-medium text-gray-300">
-                            {{ form.last_name.label }}
-                        </label>
-                        <input type="text" name="last_name"
-                               value="{{ form.last_name.value|default:'' }}"
-                               placeholder="Pérez"
-                               class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                      text-white placeholder-gray-600 focus:outline-none
-                                      focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                        {% for error in form.last_name.errors %}
-                        <p class="text-red-400 text-xs">{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="space-y-1">
-                    <label class="text-sm font-medium text-gray-300">
-                        {{ form.email.label }}
-                    </label>
-                    <input type="email" name="email"
-                           value="{{ form.email.value|default:'' }}"
-                           placeholder="juan@email.com"
-                           class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                  text-white placeholder-gray-600 focus:outline-none
-                                  focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                    {% for error in form.email.errors %}
-                    <p class="text-red-400 text-xs">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Username -->
-                <div class="space-y-1">
-                    <label class="text-sm font-medium text-gray-300">
-                        {{ form.username.label }}
-                    </label>
-                    <input type="text" name="username"
-                           value="{{ form.username.value|default:'' }}"
-                           placeholder="juanperez123"
-                           class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                  text-white placeholder-gray-600 focus:outline-none
-                                  focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                    {% for error in form.username.errors %}
-                    <p class="text-red-400 text-xs">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Rol -->
-                <div class="space-y-1">
-                    <label class="text-sm font-medium text-gray-300">¿Cómo usarás GoSport?</label>
-                    <div class="grid grid-cols-2 gap-3 mt-1">
-
-                        <label class="cursor-pointer group">
-                            <input type="radio" name="rol" value="DEPORTISTA"
-                                   class="sr-only peer"
-                                   {% if form.rol.value == 'DEPORTISTA' or not form.rol.value %}checked{% endif %}>
-                            <div class="border border-gray-700 rounded-xl p-4 text-center
-                                        peer-checked:border-neon peer-checked:bg-neon/10
-                                        hover:border-gray-500 transition duration-300">
-                                <p class="text-2xl mb-1">⚽</p>
-                                <p class="text-sm font-bold text-white">Deportista</p>
-                                <p class="text-xs text-gray-400 mt-1">Reservo canchas</p>
-                            </div>
-                        </label>
-
-                        <label class="cursor-pointer group">
-                            <input type="radio" name="rol" value="DUEÑO"
-                                   class="sr-only peer"
-                                   {% if form.rol.value == 'DUEÑO' %}checked{% endif %}>
-                            <div class="border border-gray-700 rounded-xl p-4 text-center
-                                        peer-checked:border-neon peer-checked:bg-neon/10
-                                        hover:border-gray-500 transition duration-300">
-                                <p class="text-2xl mb-1">🏟️</p>
-                                <p class="text-sm font-bold text-white">Dueño</p>
-                                <p class="text-xs text-gray-400 mt-1">Ofrezco canchas</p>
-                            </div>
-                        </label>
-
-                    </div>
-                    {% for error in form.rol.errors %}
-                    <p class="text-red-400 text-xs">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Password -->
-                <div class="space-y-1">
-                    <label class="text-sm font-medium text-gray-300">Contraseña</label>
-                    <input type="password" name="password1" placeholder="••••••••"
-                           class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                  text-white placeholder-gray-600 focus:outline-none
-                                  focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                    {% for error in form.password1.errors %}
-                    <p class="text-red-400 text-xs">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <div class="space-y-1">
-                    <label class="text-sm font-medium text-gray-300">Confirmar contraseña</label>
-                    <input type="password" name="password2" placeholder="••••••••"
-                           class="w-full bg-dark border border-gray-700 rounded-xl px-4 py-3
-                                  text-white placeholder-gray-600 focus:outline-none
-                                  focus:border-neon focus:ring-1 focus:ring-neon transition duration-300">
-                    {% for error in form.password2.errors %}
-                    <p class="text-red-400 text-xs">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Errores generales del form -->
-                {% if form.non_field_errors %}
-                <div class="p-4 rounded-lg bg-red-900/40 text-red-400 border border-red-800">
-                    {% for error in form.non_field_errors %}
-                    <p class="text-sm">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-                <!-- Submit -->
-                <button type="submit"
-                        class="w-full relative overflow-hidden bg-gray-800 text-white font-bold
-                               py-3 px-4 rounded-xl border border-gray-700 hover:border-neon
-                               transition-all duration-300 group mt-2">
-                    <div class="absolute inset-0 bg-neon origin-left scale-x-0
-                                group-hover:scale-x-100 transition-transform duration-300 ease-out"></div>
-                    <span class="relative z-10 group-hover:text-black transition-colors duration-300">
-                        Crear cuenta
-                    </span>
-                </button>
-            </form>
-
-            <!-- Link a login -->
-            <p class="text-center text-sm text-gray-400 mt-6">
-                ¿Ya tienes cuenta?
-                <a href="{% url 'login' %}" class="text-neon hover:text-green-300 font-medium transition">
-                    Inicia sesión
-                </a>
-            </p>
-        </div>
+        <p class="auth-footer">
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}">Inicia sesión</a>
+        </p>
     </div>
 
+    <script>
+        lucide.createIcons();
+        function togglePass(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon  = document.getElementById(iconId);
+            const showing = input.type === 'text';
+            input.type = showing ? 'password' : 'text';
+            icon.setAttribute('data-lucide', showing ? 'eye' : 'eye-off');
+            lucide.createIcons();
+        }
+    </script>
 </body>
 </html>

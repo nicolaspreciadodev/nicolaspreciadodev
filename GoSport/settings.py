@@ -134,3 +134,22 @@ AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+# =============================================
+# EMAIL — Configuración
+# =============================================
+
+# DESARROLLO: imprime el email en la consola
+# Cuando tengas SMTP real, reemplaza por:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'tu@gmail.com'         ← tu correo
+# EMAIL_HOST_PASSWORD = 'tu_app_password'  ← contraseña de app Gmail
+# DEFAULT_FROM_EMAIL = 'GoSport <tu@gmail.com>'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'GoSport <noreply@gosport.com>'
+
+# URL base para links en emails (importante para el reset)
+PASSWORD_RESET_TIMEOUT = 3600  # link expira en 1 hora
