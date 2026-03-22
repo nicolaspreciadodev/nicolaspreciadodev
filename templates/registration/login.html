@@ -12,6 +12,10 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" style="background-color: #00ff88; color: black; padding: 10px 20px; border: none; font-weight: bold; cursor: pointer;">Ingresar</button>
+            <p style="text-align:center; margin-top:1rem; font-size:0.875rem; color:#9ca3af;">
+                 ¿No tienes cuenta?
+                <a href="/usuarios/registro/" style="color:#00ff88; font-weight:600;">Regístrate aquí</a>
+            </p>
         </form>
     </div>
 </body>
